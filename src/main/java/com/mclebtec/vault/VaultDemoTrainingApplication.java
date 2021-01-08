@@ -1,7 +1,7 @@
-package com.lymbyc.leni;
+package com.mclebtec.vault;
 
-import com.lymbyc.leni.springcloud.config.dto.Application;
-import com.lymbyc.leni.springcloud.config.dto.Common;
+import com.mclebtec.vault.springcloud.config.dto.Application;
+import com.mclebtec.vault.springcloud.config.dto.Common;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

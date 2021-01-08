@@ -1,6 +1,6 @@
-package com.lymbyc.leni.springcloud.config.dto;
+package com.mclebtec.vault.springcloud.config.dto;
 
-import com.lymbyc.leni.springcloud.config.VaultCloudConfiguration;
+import com.mclebtec.vault.springcloud.config.VaultCloudConfiguration;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;

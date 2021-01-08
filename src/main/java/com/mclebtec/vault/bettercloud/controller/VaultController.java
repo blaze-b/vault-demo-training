@@ -1,4 +1,4 @@
-package com.lymbyc.leni.bettercloud.controller;
+package com.mclebtec.vault.bettercloud.controller;
 
 import com.bettercloud.vault.Vault;
 import com.bettercloud.vault.VaultException;

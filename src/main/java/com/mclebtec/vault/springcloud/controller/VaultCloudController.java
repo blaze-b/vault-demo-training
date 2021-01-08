@@ -1,7 +1,7 @@
-package com.lymbyc.leni.springcloud.controller;
+package com.mclebtec.vault.springcloud.controller;
 
 import com.bettercloud.vault.VaultException;
-import com.lymbyc.leni.config.VaultProperties;
+import com.mclebtec.vault.config.VaultProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.vault.core.VaultKeyValueOperations;
 import org.springframework.vault.core.VaultTransitOperations;

@@ -1,10 +1,10 @@
-package com.lymbyc.leni.bettercloud.config;
+package com.mclebtec.vault.bettercloud.config;
 
 import com.bettercloud.vault.SslConfig;
 import com.bettercloud.vault.Vault;
 import com.bettercloud.vault.VaultConfig;
 import com.bettercloud.vault.VaultException;
-import com.lymbyc.leni.config.VaultProperties;
+import com.mclebtec.vault.config.VaultProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

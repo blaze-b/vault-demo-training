@@ -8,8 +8,8 @@
 		<version>2.3.7.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.lymbyc</groupId>
-	<artifactId>leni</artifactId>
+	<groupId>com.mclebtec</groupId>
+	<artifactId>vault</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>vault-demo-training</name>
 	<description>Application to test the vault database</description>

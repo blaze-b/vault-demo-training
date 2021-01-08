@@ -1,7 +1,7 @@
-package com.lymbyc.leni.config;
+package com.mclebtec.vault.config;
 
-import com.lymbyc.leni.bettercloud.config.VaultConfiguration;
-import com.lymbyc.leni.springcloud.config.VaultCloudConfiguration;
+import com.mclebtec.vault.bettercloud.config.VaultConfiguration;
+import com.mclebtec.vault.springcloud.config.VaultCloudConfiguration;
 import lombok.Data;
 import org.springframework.boot.autoconfigure.AutoConfigureBefore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
