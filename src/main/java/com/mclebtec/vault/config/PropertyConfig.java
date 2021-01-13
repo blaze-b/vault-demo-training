@@ -38,7 +38,7 @@ public class PropertyConfig {
     }
 
     @PostConstruct
-//    @Scheduled(cron = "0/11 * * ? * *")
+    //@Scheduled(cron = "0/11 * * ? * *")
     public Properties loadForMyApp() {
         if (properties != null) {
             VaultResponse response = kv.get(vProperties.getAppName());
