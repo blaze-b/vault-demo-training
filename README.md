@@ -25,7 +25,9 @@ For further reference, please consider the following sections:
 
 ### CRUD operations
 
-- Writing a secret in vault `vault kv put secret/hello foo=world`<vault kv put <path> <key>=<value>> `vault kv put secret/hello foo=world excited=yes`
+- Writing a secret in vault `vault kv put secret/hello foo=world`, 
+  `<vault kv put <path> <key>=<value>>` 
+  Eg: `vault kv put secret/hello foo=world excited=yes`
 - Get the key details command `vault kv get <path>`, `vault kv get secret/hello`
 - Get based on a particular field `vault kv get -field=excited secret/hello`
 - Get output in the JSON format `vault kv get -format=json secret/hello`
