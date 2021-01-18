@@ -10,9 +10,9 @@ For further reference, please consider the following sections:
 
 ### Install jq.exe file for JSON printing
 
-## Vault Setup and operations
+## Vault Dev Environment Setup in Local
 
-- Download the file from the following website (https://www.vaultproject.io/downloads)'
+- Download the file from the following website, [Click Here](https://www.vaultproject.io/downloads)
 - Set the path in the environment variables
 - Command to check whether the installation was correct `vault`, `vault version`
 - CMD to start the server `vault server -dev`, Note : do not run the web server in production
