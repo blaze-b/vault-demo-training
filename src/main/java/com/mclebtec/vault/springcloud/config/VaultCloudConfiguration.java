@@ -50,6 +50,7 @@ public class VaultCloudConfiguration {
             sysOperations.mount(transit.get("path"), VaultMount.create(transit.get("path")));
             transitOperations().createKey(transit.get("key"));
         }
+        log.info("Transit Keys ={}", transitOperations().getKeys());
         return sysOperations;
     }
 

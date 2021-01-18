@@ -14,6 +14,7 @@ import javax.annotation.PostConstruct;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 
 @Slf4j
 @Configuration
@@ -39,31 +40,39 @@ public class PropertyConfig {
     }
 
     @PostConstruct
-    public Properties loadViaCloud() {
+    public Properties loadViaBetterCloud() throws VaultException {
         if (properties != null) {
-            VaultResponse response = kv.get(vProperties.getAppName());
-            Map<String, Object> details = Objects.requireNonNull(response).getData();
-            log.debug("Configuration details = {}", details);
-            if (details != null && details.containsKey("common.password")) {
-                String cypherText = (String) details.get("common.password");
-                Map<String, String> transit = vProperties.getTransit();
-                String plaintext = transitOperations.decrypt(transit.get("key"), cypherText);
-                details.put("common.password", plaintext);
-            }
+            Map<String, String> details = vault.logical()
+                    .read("secret/" + vProperties.getAppName())
+                    .getData();
+            log.info("Configuration better cloud details = {}", details);
             properties.putAll(details);
         }
         return properties;
     }
 
     @PostConstruct
-    public Properties loadViaBetterCloud() throws VaultException {
+    public Properties loadViaSpringCloud() {
         if (properties != null) {
-            Map<String, String> details = vault.logical()
-                    .read("secret/" + vProperties.getAppName())
-                    .getData();
-            log.debug("Configuration details = {}", details);
+            VaultResponse response = kv.get(vProperties.getAppName());
+            Map<String, Object> details = Objects.requireNonNull(response).getData();
+            if (details != null) {
+                Set<String> keys = details.keySet();
+                keys.forEach(k -> {
+                    try {
+                        String value = (String) details.get(k);
+                        Map<String, String> transit = vProperties.getTransit();
+                        String decryptedValue = transitOperations.decrypt(transit.get("key"), value);
+                        details.put(k, decryptedValue);
+                    } catch (Exception e) {
+                        log.warn("Not a cypher text with error = {}", e.getMessage());
+                    }
+                });
+            }
+            log.info("Configuration spring cloud details = {}", details);
             properties.putAll(details);
         }
         return properties;
     }
 }
+;
