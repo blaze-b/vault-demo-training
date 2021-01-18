@@ -90,7 +90,7 @@ For further reference, please consider the following sections:
 ### Git hub
 
 - Can do the github enabling `vault auth enable github`
-- Writing data - vault write auth/github/config organization=hashicorp
+- Writing data - `vault write auth/github/config organization=hashicorp`
 - Reading `vault read auth/github/config`,`vault auth list`
 - CMD `vault write auth/github/map/teams/engineering value=default,applications`
 - Reading `vault read auth/github/map/teams/engineering `
