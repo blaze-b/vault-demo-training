@@ -104,16 +104,14 @@ For further reference, please consider the following sections:
 - `vault policy read default`
 - `vault policy list`
 - Policy writing help command `vault policy write -h`
-- Creating a named policy: vault policy write my-policy - << EOF
-	# Dev servers have version 2 of KV secrets engine mounted by default, so will
-	# need these paths to grant permissions:
+- Creating a named policy: `vault policy write my-policy - << EOF # Dev servers have version 2 of KV secrets engine mounted by default, so will # need these paths to grant permissions:
 	path "secret/data/*" {
 	  capabilities = ["create", "update"]
 	}
 	path "secret/data/foo" {
 	  capabilities = ["read"]
 	}
-	EOF
+	EOF`
 - To read the created policy `vault policy read my-policy`
 - Testing the token
 - Create a token `vault token create -policy=my-policy`
