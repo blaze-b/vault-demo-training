@@ -19,6 +19,7 @@ import java.util.Properties;
 @Configuration
 @AutoConfigureAfter({VaultConfiguration.class, VaultConfiguration.class})
 public class PropertyConfig {
+
     private final Properties properties;
     private final VaultProperties vProperties;
     private final VaultKeyValueOperations kv;
@@ -38,12 +39,11 @@ public class PropertyConfig {
     }
 
     @PostConstruct
-    //@Scheduled(cron = "0/11 * * ? * *")
-    public Properties loadForMyApp() {
+    public Properties loadViaCloud() {
         if (properties != null) {
             VaultResponse response = kv.get(vProperties.getAppName());
             Map<String, Object> details = Objects.requireNonNull(response).getData();
-            log.info("Configuration details = {}", details);
+            log.debug("Configuration details = {}", details);
             if (details != null && details.containsKey("common.password")) {
                 String cypherText = (String) details.get("common.password");
                 Map<String, String> transit = vProperties.getTransit();
@@ -56,13 +56,12 @@ public class PropertyConfig {
     }
 
     @PostConstruct
-    public Properties loadForLeni() throws VaultException {
+    public Properties loadViaBetterCloud() throws VaultException {
         if (properties != null) {
-            VaultResponse response = kv.get(vProperties.getAppName());
             Map<String, String> details = vault.logical()
-                    .read("secret/leni")
+                    .read("secret/" + vProperties.getAppName())
                     .getData();
-            log.info("Configuration details = {}", details);
+            log.debug("Configuration details = {}", details);
             properties.putAll(details);
         }
         return properties;
