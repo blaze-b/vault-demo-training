@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.Set;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -35,17 +36,12 @@ public class VaultCloudController {
     }
 
     @GetMapping(value = "load/all")
-    public Map<String, Object> showSecretData() {
+    public Map<String, Object> showSecretData(@RequestParam boolean decryptEnabled) {
         log.info("Properties ={}", properties.get("application.key"));
         VaultResponse response = kv.get(vProperties.getAppName());
         Map<String, Object> details = Objects.requireNonNull(response).getData();
         log.info("Configuration details = {}", details);
-        if (details != null && details.containsKey("common.password")) {
-            String cypherText = (String) details.get("common.password");
-            Map<String, String> transit = vProperties.getTransit();
-            String plaintext = transitOperations.decrypt(transit.get("key"), cypherText);
-            details.put("common.password", plaintext);
-        }
+        if(decryptEnabled) decryptCipherTextValues(details);
         return details;
     }
 
@@ -58,6 +54,21 @@ public class VaultCloudController {
                     (String) secrets.get("common.password"));
             secrets.put("common.password", ciphertext);
             kv.put(vProperties.getAppName(), secrets);
+        }
+    }
+
+    private void decryptCipherTextValues(Map<String, Object> details) {
+        if (details != null) {
+            Set<String> keys = details.keySet();
+            keys.forEach(k -> {
+                try {
+                    String value = (String) details.get(k);
+                    String decryptedValue = transitOperations.decrypt("vault-app-key", value);
+                    details.put(k, decryptedValue);
+                } catch (Exception e) {
+                    log.warn("Not a cypher text with error = {}", e.getMessage());
+                }
+            });
         }
     }
 }
